@@ -1,3 +1,22 @@
+/**                                                                                                                                                                                        
+*
+* Copyright (c) 2025  King Abdullah University of Science and Technology                                     
+* All rights reserved.
+*
+* CuBesselK is provided by KAUST                                                                             
+**/
+/**                
+*
+* @file logbesselk.cu                                                                                   
+*
+* CUDA device and global function defined to evaluate modified Bessel function of the second kind on CUDA device.
+*
+* @author Zipei Geng
+* @date 2025-03-11
+*                                                                                                                                                                                         
+**/
+
+
 #include "logbesselk.h"
 #include <cuda_runtime.h>
 #include <stdlib.h>

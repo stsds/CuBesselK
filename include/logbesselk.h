@@ -1,3 +1,22 @@
+/**                
+ *
+ * Copyright (c) 2025  King Abdullah University of Science and Technology                                     
+ * All rights reserved.
+ *
+ * CuBesselK is provided by KAUST                                                                             
+ **/               
+/**                
+ *
+ * @file logbesselk.h                                                                                    
+ *
+ * Header files to be referenced.
+ *
+ * @author Zipei Geng
+ * @date 2025-03-11
+ *                                                                                                                                                                                         
+ **/ 
+
+
 #ifndef CUDA_BESSEL_H
 #define CUDA_BESSEL_H
 

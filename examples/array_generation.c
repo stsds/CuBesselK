@@ -1,3 +1,22 @@
+/**                
+*
+* Copyright (c) 2025  King Abdullah University of Science and Technology                                     
+* All rights reserved.
+*
+* CuBesselK is provided by KAUST                                                                             
+**/               
+/**                
+*
+* @file array_generation.c                                                                                     
+*
+* To generate an 2D array of modified Bessel function of the second kind given range.
+*
+* @author Zipei Geng
+* @date 2025-03-11
+*                                                                                                                                                                                         
+**/ 
+
+
 #include "logbesselk.h"
 #include <stdio.h>
 #include <stdlib.h>
