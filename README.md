@@ -10,7 +10,7 @@ This repo present a robust implementation of the modified Bessel function of the
 
 We cover a range of values commonly used in real applications ($x \in [0, 140]$, $\nu \in [0, 20]$), providing high accuracy compared to common libraries like the GNU Scientific Library (GSL) when referenced to Mathematica as the authority. 
 
-Our GPU-accelerated approach also demonstrates a $2.68$X performance improvement using a single A100 GPU compared to the GSL on 40-core Intel Cascade Lake CPUs.
+Our GPU-accelerated approach also demonstrates a 2.68X performance improvement using a single A100 GPU compared to the GSL on 40-core Intel Cascade Lake CPUs.
 
 
 # Usage
