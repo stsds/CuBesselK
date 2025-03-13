@@ -13,16 +13,23 @@ We cover a range of values commonly used in real applications ($x \in [0, 140]$,
 Our GPU-accelerated approach also demonstrates a 2.68X performance improvement using a single A100 GPU compared to the GSL on 40-core Intel Cascade Lake CPUs.
 
 
+# Necessary Libraries
+
+gcc (>= 9.4.0), GNU Make (>= 4.2.1), CUDA (>= 11.4)
+
+
 # Usage
 
 To use this repo, you can either copy the CUDA functions defined in `src/logbesselk.cu` or adding your own program into the `examples/` and compile using `make` command in the main directory. It will create the `build` folder automatically and your can run your self-defined program as executables.
+
+We also provide two examples for users to check it out how to use the defined BesselK function. You can test and run in the `build/` folder.
 
 Please *NOTE* that some GPU devices are not compatible with the NVCC architecture `sm75`, please edit `NVCCFLAGS` in `Makefile`.
 
 *IMPORTANT NOTICE:* We use series expansion when $x < 0.1$, and numerical integration when $x \leq 0.1$. To avoid the load imbalance carried by if-else branching, we recommend the users to sort the input elements based on which expression is used for each element. For example, if you wish to evaluate $k$ elements that falls into $x < 0.1$, and assuming your block has 1024 threads available. You should allocate $\lfloor k/1024 \rfloor$ blocks solely evaluating series expansion.
 
 
-File hierarchy:
+# File hierarchy
 
 - `examples` This folder contains two examples to illustrate the usage of the defined function.
 - `include` This folder contains header file(s).
