@@ -2,16 +2,15 @@
 
 This is the repo to the manuscript *GPU-Accelerated Modified Bessel Function of the Second Kind for Gaussian Processes* (https://arxiv.org/pdf/2502.00356)
 
-Modified Bessel functions of the second kind are widely used in physics, engineering, spatial statistics and machine learning. Since contemporary scientific applications, including machine learning, rely on GPUs for acceleration, providing robust GPU-hosted implementations of special functions.
+Modified Bessel functions of the second kind are widely used in physics, engineering, spatial statistics, and machine learning. Since contemporary scientific applications, including machine learning, rely on GPUs for acceleration, they provide robust GPU-hosted implementations of special functions.
 
-Existing implementations of the modified Bessel function of the second kind rely on CPUs and have limited coverage of the full range of values needed in some applications. 
+Existing implementations of the modified Bessel function of the second kind rely on CPUs and have limited coverage of the full range of values needed in some applications.
 
-This repo present a robust implementation of the modified Bessel function of the second kind on GPU, which utilizes a recursive implementation [(1)](https://dl.acm.org/doi/pdf/10.1145/355921.355928) of series expansion [(2)](https://www.sciencedirect.com/science/article/pii/0021999175900820) and numerical integration [(3)](https://www.sciencedirect.com/science/article/pii/S2352711021001655).
+This repo presents a robust implementation of the modified Bessel function of the second kind on GPU, which utilizes a recursive implementation [(1)](https://dl.acm.org/doi/pdf/10.1145/355921.355928) of series expansion [(2)](https://www.sciencedirect.com/science/article/pii/0021999175900820) and numerical integration [(3)](https://www.sciencedirect.com/science/article/pii/S2352711021001655).
 
-We cover a range of values commonly used in real applications ($x \in [0, 140]$, $\nu \in [0, 20]$), providing high accuracy compared to common libraries like the GNU Scientific Library (GSL) when referenced to Mathematica as the authority. 
+We cover a range of values commonly used in real applications ($x \in [0, 140]$, $\nu \in [0, 20]$), providing high accuracy compared to common libraries like the GNU Scientific Library (GSL) when referenced to Mathematica as the authority.
 
 Our GPU-accelerated approach also demonstrates a 2.68X performance improvement using a single A100 GPU compared to the GSL on 40-core Intel Cascade Lake CPUs.
-
 
 # Required Dependencies and Libraries
 
