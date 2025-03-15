@@ -20,18 +20,18 @@ gcc (>= 9.4.0), GNU Make (>= 4.2.1), CUDA (>= 11.4)
 
 # Usage
 
-To use this repo, you can either copy the CUDA functions defined in `src/logbesselk.cu` or adding your own program into the `examples/` and compile using `make` command in the main directory. It will create the `build` folder automatically and your can run your self-defined program as executables.
+To use this repo, you can either copy the CUDA functions defined in `src/logbesselk.cu` or add your own program to the `examples/` and compile using the `make` command in the main directory. It will create the `build` folder automatically, and you can run your self-defined programs as executables.
 
-We also provide two examples for users to check it out how to use the defined BesselK function. You can test and run in the `build/` folder.
+We also provide two examples for users to check out how to use the defined BesselK function. You can test it and run it in the `build/` folder.
 
 Please *NOTE* that some GPU devices are not compatible with the NVCC architecture `sm75`, please edit `NVCCFLAGS` in `Makefile`.
 
-*IMPORTANT NOTICE:* We use series expansion when $x < 0.1$, and numerical integration when $x \leq 0.1$. To avoid the load imbalance carried by if-else branching, we recommend the users to sort the input elements based on which expression is used for each element. For example, if you wish to evaluate $k$ elements that falls into $x < 0.1$, and assuming your block has 1024 threads available. You should allocate $\lfloor k/1024 \rfloor$ blocks solely evaluating series expansion.
+*IMPORTANT NOTICE:* We use series expansion when $x < 0.1$, and numerical integration when $x \leq 0.1$. To avoid the load imbalance carried by if-else branching, we recommend the users to sort the input elements based on which expression is used for each element. For example, if you wish to evaluate $k$ elements that fall into $x < 0.1$, and assuming your block has 1024 threads available. You should allocate $\lfloor k/1024 \rfloor$ blocks solely evaluating series expansion.
 
 
 # File hierarchy
 
-- `examples` This folder contains two examples to illustrate the usage of the defined function.
-- `include` This folder contains header file(s).
-- `src` This folder contains the CUDA program of executing BesselK function.
-- `Makefile` Contains all details to compile this project.
+- `examples` This directory contains two examples to illustrate the usage of the defined function.
+- `include` This directory contains header file(s).
+- `src` This folder contains the CUDA program for executing the BesselK function.
+- `Makefile` This file contains all the details to compile this project.
