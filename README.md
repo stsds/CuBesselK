@@ -12,16 +12,23 @@ We cover a range of values commonly used in real applications ($x \in [0, 140]$,
 
 Our GPU-accelerated approach also demonstrates a 2.68X performance improvement using a single A100 GPU compared to the GSL on 40-core Intel Cascade Lake CPUs.
 
+
 # Required Dependencies and Libraries
 
 gcc (>= 9.4.0), GNU Make (>= 4.2.1), CUDA (>= 11.4)
-
 
 # Usage
 
 To use this repo, you can either copy the CUDA functions defined in `src/logbesselk.cu` or add your own program to the `examples/` and compile using the `make` command in the main directory. It will create the `build` folder automatically, and you can run your self-defined programs as executables.
 
-We also provide two examples for users to check out how to use the defined BesselK function. You can test it and run it in the `build/` folder.
+
+We also provide two examples for users to check it out how to use the defined BesselK function. You can test and run in the `build/` folder. In all example programs, we've implemented command-line functionality to adjust the bin count for numerical integration. Higher bin counts yield more precise calculations, though there's diminishing returns when your application only involves values of ν below 2.5. For reference, the manuscript includes a comparative analysis examining the performance impact of various bin count settings within the Maximum Likelihood Estimation context.
+
+The example code is given as follows:
+
+```
+./simple_example --nbins 128
+```
 
 Please *NOTE* that some GPU devices are not compatible with the NVCC architecture `sm75`, please edit `NVCCFLAGS` in `Makefile`.
 

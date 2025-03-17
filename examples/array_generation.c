@@ -12,7 +12,7 @@
 * To generate an 2D array of modified Bessel function of the second kind given range.
 *
 * @author Zipei Geng
-* @date 2025-03-11
+* @date 2025-03-17
 *                                                                                                                                                                                         
 **/ 
 
@@ -21,9 +21,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 #include <cuda_runtime.h>
 
-int main() {
+void print_usage(const char* program_name) {
+    printf("Usage: %s [OPTIONS]\n", program_name);
+    printf("Options:\n");
+    printf("  --nbins N    Set the number of intervals (default: 128)\n");
+}
+
+int main(int argc, char *argv[]) {
+    int i;
+    for (i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--nbins") == 0) {
+            if (i + 1 < argc) {
+                int nbins = atoi(argv[i + 1]);
+                if (nbins > 0) {
+                    setIntervals(nbins);
+                    printf("Using custom intervals: %d\n", nbins);
+                } else {
+                    printf("Warning: Invalid nbins value. Using default.\n");
+                }
+                i++; // Skip the next argument (the value)
+            } else {
+                printf("Error: --nbins requires a value\n");
+                print_usage(argv[0]);
+                return 1;
+            }
+        } else {
+            printf("Unknown option: %s\n", argv[i]);
+            print_usage(argv[0]);
+            return 1;
+        }
+    }
+    
     // Calculate array sizes based on the ranges
     int x_count = (0.1 - 0.001) / 0.005 + 1;  // From 0.001 to 0.1 with step 0.005
     int nu_count = (5.0 - 0.001) / 0.25 + 1;  // From 0.001 to 5 with step 0.25
