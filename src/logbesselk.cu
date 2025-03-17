@@ -12,7 +12,7 @@
 * CUDA device and global function defined to evaluate modified Bessel function of the second kind on CUDA device.
 *
 * @author Zipei Geng
-* @date 2025-03-11
+* @date 2025-03-17
 *                                                                                                                                                                                         
 **/
 
@@ -23,6 +23,22 @@
 #include <stdio.h>
 #include <math.h>
 
+// Host variable
+int intervals = 128;
+
+// A device constant that will store the value
+__constant__ int d_intervals;
+
+// Function to update the device constant
+void setIntervals(int nbins) {
+    intervals = nbins;
+    cudaMemcpyToSymbol(d_intervals, &intervals, sizeof(int));
+}
+
+// Copy the initial value to the device
+void initBesselK() {
+    cudaMemcpyToSymbol(d_intervals, &intervals, sizeof(int));
+}
 
 __constant__ double g1_dat[14] = {
   -1.14516408366268311786898152867,
@@ -204,24 +220,23 @@ __device__ double modified_besselk(double nu, double x) {
         return K_nu * exp(-x);
     } 
     else {
-        const int intervals = 128; // first set to 128
-        const double h = 9.0 / intervals; // upper bound = 9, lower bound = 0
+        const double h = 9.0 / d_intervals; // upper bound = 9, lower bound = 0
         double max_term = -INFINITY;
         double sum = 0.0;
 
         // First pass: find the maximum term
-        for (int m = 0; m <= intervals; m++) {
+        for (int m = 0; m <= d_intervals; m++) {
             double t_m = m * h;
-            double c_m = (m == 0 || m == intervals) ? 0.5 : 1.0;
+            double c_m = (m == 0 || m == d_intervals) ? 0.5 : 1.0;
             double g_m = f(t_m, nu, x);
             double term = log(c_m) + g_m;
             max_term = fmax(max_term, term);
         }
 
         // Second pass: compute the sum using the log-sum-exp trick
-        for (int m = 0; m <= intervals; m++) {
+        for (int m = 0; m <= d_intervals; m++) {
             double t_m = m * h;
-            double c_m = (m == 0 || m == intervals) ? 0.5 : 1.0;
+            double c_m = (m == 0 || m == d_intervals) ? 0.5 : 1.0;
             double g_m = f(t_m, nu, x);
             double term = log(c_m) + g_m;
             sum += exp(term - max_term);
@@ -241,6 +256,12 @@ __global__ void modified_besselkKernel(double *x, double *v, double *result, int
 
 extern "C" void BesselK_CUDA(double *host_x, double *host_v,
                              double *host_result, int n) {
+
+    static bool initialized = false;
+    if (!initialized) {
+        initBesselK();
+        initialized = true;
+    }
     double *dev_x, *dev_v, *dev_result;
     
     cudaMalloc((void**)&dev_x, n * sizeof(double));

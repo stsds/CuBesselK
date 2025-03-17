@@ -12,7 +12,7 @@
  * Header files to be referenced.
  *
  * @author Zipei Geng
- * @date 2025-03-11
+ * @date 2025-03-17
  *                                                                                                                                                                                         
  **/ 
 
@@ -38,7 +38,13 @@ typedef struct cheb_series_struct cheb_series;
 extern "C" {
 #endif
 
-// Function prototype for the C wrapper
+// Function to set the number of intervals
+extern int intervals;
+void setIntervals(int nbins);
+
+// Initialize the CUDA constants
+void initBesselK(void);
+
 void BesselK_CUDA(double *host_x, double *host_v,
                              double *host_result, int n);
 
